@@ -20,7 +20,7 @@ if __name__ == '__main__':
             num_square = str(num_square)
             # print(num_square)
             for i in range(8):  # (9) Not required
-                if int(num_square[2*i]) == int(i+1):
+                if int(num_square[2*i]) != int(i+1):
                     FLAG = False
                     break
             if FLAG:
