@@ -25,6 +25,7 @@ if __name__ == '__main__':
                     break
             if FLAG:
                 print("Square:", num_square+"00")
+                print("Number:", str(num)+"0")
                 break
         if FLAG:
             break
