@@ -4,7 +4,7 @@ Brute force approach.
 import numpy as np
 import itertools
 
-n = 1 # input("Enter n:")
+n = int(input("Enter n: "))
 S_n = 0
 
 # Arr = np.zeros(4*n, dtype=int)
