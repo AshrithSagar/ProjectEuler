@@ -34,6 +34,13 @@ def diff(first, second):
     return res
 
 
+def with_mod(num, mod):
+    """
+    Return Number modulo 10^MOD
+    """
+    return int(str(num)[-mod:])
+
+
 if __name__ == '__main__':
     NUM_DIGITS = 2020
     MOD = 16
@@ -58,6 +65,7 @@ if __name__ == '__main__':
 
                     TERM_1 = math.comb(MOD-1, len(sub_part))
                     TERM_2 = math.comb(NUM_DIGITS-MOD, len(rest_part))
+                    print(TERM_1, TERM_2)
 
                     TERM_3 = 1
                     for index in uniq_sub_part:
@@ -72,13 +80,14 @@ if __name__ == '__main__':
                     PROD = 1
                     PROD_1 = TERM_1 / TERM_3
                     PROD_2 = TERM_2 / TERM_4
-                    PROD *= int(str(TERM_1)[-MOD:])
-                    PROD *= int(str(TERM_2)[-MOD:])
+                    PROD *= with_mod(TERM_1, MOD)
+                    PROD *= with_mod(TERM_2, MOD)
                     PROD *= 2*digit
-                    PROD *= int(str(PROD)[-MOD:])
+                    PROD *= with_mod(PROD, MOD)
+                    print(PROD)
                     SUM += PROD
 
     NUM = int("1"*MOD)
     SUM *= NUM
-    SUM = int(str(SUM)[-MOD:])
+    SUM = with_mod(SUM, MOD)
     print(SUM)
