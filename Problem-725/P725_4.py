@@ -1,6 +1,7 @@
 """
 P725_4
 """
+import math
 import itertools
 from collections import Counter
 
@@ -41,9 +42,9 @@ if __name__ == '__main__':
     for digit in range(1, 10):
         for part in partitions(digit):
             part = [*part, digit]
-            print(part)
+            # print(part)
             for choice in range(1, len(part)+1):
-                print(choice)
+                # print(choice)
                 combs = itertools.combinations(part, choice)
                 uniq_combs = set(combs)
 
@@ -53,12 +54,26 @@ if __name__ == '__main__':
                     rest_part_counter = Counter(rest_part)
                     uniq_sub_part = set(sub_part)
                     uniq_rest_part = set(rest_part)
-                    print(sub_part)
-                    print(rest_part)
+                    # print(sub_part)
+                    # print(rest_part)
 
-                    # for x in uniq_sub_part:
-                    #     term = pass
-                    #     SUM += int(str(term)[-MOD:])
+                    TERM_1 = math.comb(MOD-1, len(sub_part))
+                    TERM_2 = math.comb(NUM_DIGITS-MOD, len(rest_part))
+
+                    TERM_3 = 1
+                    for index in uniq_sub_part:
+                        count = sub_part_counter[index]
+                        TERM_3 *= math.factorial(count)
+
+                    TERM_4 = 1
+                    for index in uniq_rest_part:
+                        count = rest_part_counter[index]
+                        TERM_4 *= math.factorial(count)
+
+                    PROD = 1
+                    for term in [TERM_1, TERM_2, TERM_3, TERM_4]:
+                        PROD *= int(str(term)[-MOD:])
+                    SUM += PROD
 
     NUM = int("1"*MOD)
     SUM *= NUM
