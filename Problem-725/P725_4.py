@@ -71,8 +71,10 @@ if __name__ == '__main__':
                         TERM_4 *= math.factorial(count)
 
                     PROD = 1
-                    for term in [TERM_1, TERM_2, TERM_3, TERM_4]:
-                        PROD *= int(str(term)[-MOD:])
+                    PROD_1 = TERM_1 / TERM_3
+                    PROD_2 = TERM_2 / TERM_4
+                    PROD *= int(str(TERM_1)[-MOD:])
+                    PROD *= int(str(TERM_2)[-MOD:])
                     SUM += PROD
 
     NUM = int("1"*MOD)
