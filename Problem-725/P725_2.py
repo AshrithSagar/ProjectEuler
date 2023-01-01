@@ -14,9 +14,9 @@ def partitions(num, init=1):
             yield (index,) + part
 
 
-def ds_n(num_digits):
+def ds_sum(num_digits):
     """
-    Sum of all DS-numbers of N digits.
+    Sum of all DS-numbers of N digits or less.
     """
     sum_ds = 0
     for digit in range(10):
@@ -34,5 +34,5 @@ def ds_n(num_digits):
 
 
 if __name__ == '__main__':
-    print(ds_n(3))
-    print(ds_n(7))
+    print(ds_sum(3))
+    print(ds_sum(7))
