@@ -13,6 +13,7 @@ def ds_sum(n_digits):
         num_arr = [int(d) for d in num_str]
         max_d = max(num_arr)
         if sum(num_arr) == 2*max_d:
+            # print(num)
             sum_ds += num
 
     return sum_ds
