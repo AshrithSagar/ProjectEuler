@@ -21,12 +21,12 @@ def ds_n(N):
     sum_ds = 0
     for d in range(10):
         for p in partitions(d):
-            if len(p) <= (N-1):
+            if len(p) == (N-1):
                 perms = itertools.permutations([*p, d])
                 uniq_perms = set(perms)
                 print(d, uniq_perms)
                 sum_ds += (2*d) * len(uniq_perms)
-    print(sum_ds)
+    return N, sum_ds
 
 
 if __name__ == '__main__':
