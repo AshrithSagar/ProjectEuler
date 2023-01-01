@@ -54,8 +54,7 @@ if __name__ == '__main__':
                     rest_part_counter = Counter(rest_part)
                     uniq_sub_part = set(sub_part)
                     uniq_rest_part = set(rest_part)
-                    # print(sub_part)
-                    # print(rest_part)
+                    print(rest_part, sub_part)
 
                     TERM_1 = math.comb(MOD-1, len(sub_part))
                     TERM_2 = math.comb(NUM_DIGITS-MOD, len(rest_part))
@@ -75,6 +74,8 @@ if __name__ == '__main__':
                     PROD_2 = TERM_2 / TERM_4
                     PROD *= int(str(TERM_1)[-MOD:])
                     PROD *= int(str(TERM_2)[-MOD:])
+                    PROD *= 2*digit
+                    PROD *= int(str(PROD)[-MOD:])
                     SUM += PROD
 
     NUM = int("1"*MOD)
