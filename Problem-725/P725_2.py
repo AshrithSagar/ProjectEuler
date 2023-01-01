@@ -29,8 +29,11 @@ def ds_n(num_digits, num_non_zero = -1):
             if len(part) == (num_non_zero-1):
                 perms = itertools.permutations([*part, digit])
                 uniq_perms = set(perms)
-                print(digit, uniq_perms)
-                sum_ds += (2*digit) * len(uniq_perms)
+                for perm in uniq_perms:
+                    perm = [str(x) for x in perm]
+                    perm_num = "".join(perm)
+                    print(perm_num)
+                    sum_ds += int(perm_num)
     return num_digits, sum_ds
 
 
