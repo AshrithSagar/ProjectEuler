@@ -77,23 +77,28 @@ if __name__ == '__main__':
                     uniq_sub_part = set(sub_part)
                     uniq_rest_part = set(rest_part)
 
+                    DIG_SUM = 0
                     ZEROS = (MOD) - len(sub_part)
-                    TERM_1 = multinomial([ZEROS, *list(sub_part_counter.values())])
-                    TERM_1 = with_mod(TERM_1, MOD)
-                    TERM_3 = 1
                     for place in uniq_sub_part:
-                        TERM_3 *= sub_part_counter[place]
+                        TERM_3 = sub_part_counter.copy()
+                        TERM_3[place] -= 1
+                        TERM_1 = multinomial([ZEROS, *list(TERM_3)])
+                        TERM_1 = with_mod(TERM_1, MOD)
+                        TERM_6 = sub_part_counter[place]
+                        TERM_5 = TERM_6 * TERM_1
+                    TERM_5 = with_mod(TERM_5, MOD)
+
                     ZEROS = (NUM_DIGITS - MOD) - len(rest_part)
                     TERM_2 = multinomial([ZEROS, *list(rest_part_counter.values())])
                     TERM_2 = with_mod(TERM_2, MOD)
 
                     PROD = 1
-                    for term in [TERM_1, TERM_2, TERM_3, sum(sub_part)]:
+                    for term in [TERM_5, TERM_2]:
                         PROD *= term
                         PROD = with_mod(PROD, MOD)
                     # PROD /= MOD
                     print(digit, part, rest_part, sub_part, TERM_2,
-                        TERM_1, TERM_3, sum(sub_part), PROD)
+                        TERM_5, sum(sub_part), PROD)
                     SUM += PROD
 
     NUM = int("1"*MOD)
