@@ -38,7 +38,7 @@ def with_mod(num, mod):
     """
     Return Number modulo 10^MOD
     """
-    return int(str(num)[-mod:])
+    return int(str(int(num))[-mod:])
 
 
 if __name__ == '__main__':
@@ -60,8 +60,8 @@ if __name__ == '__main__':
                     uniq_sub_part = set(sub_part)
                     uniq_rest_part = set(rest_part)
 
-                    TERM_1 = math.comb(MOD-1, len(sub_part))
-                    TERM_2 = math.comb(NUM_DIGITS-MOD, len(rest_part))
+                    TERM_1 = math.perm(MOD-1, len(sub_part))
+                    TERM_2 = math.perm(NUM_DIGITS-MOD, len(rest_part))
 
                     TERM_3 = 1
                     for index in uniq_sub_part:
@@ -74,14 +74,14 @@ if __name__ == '__main__':
                         TERM_4 *= math.factorial(count)
 
                     PROD = 1
-                    PROD_1 = TERM_1 // TERM_3
-                    PROD_2 = TERM_2 // TERM_4
+                    PROD_1 = TERM_1 / TERM_3
+                    PROD_2 = TERM_2 / TERM_4
                     PROD *= with_mod(TERM_1, MOD)
                     PROD *= with_mod(TERM_2, MOD)
                     PROD *= sum(sub_part)
                     PROD = with_mod(PROD, MOD)
-                    print(digit, part, rest_part, sub_part, TERM_1, TERM_2,
-                        TERM_3, TERM_4, PROD_1 ,PROD_2, sum(sub_part), PROD)
+                    print(digit, part, rest_part, sub_part, TERM_2, TERM_4,
+                        PROD_2, TERM_1, TERM_3, PROD_1, sum(sub_part), PROD)
                     SUM += PROD
 
     NUM = int("1"*MOD)
