@@ -34,6 +34,23 @@ def diff(first, second):
     return res
 
 
+def multinomial(lst):
+    """
+    https://stackoverflow.com/a/46378809
+    """
+    if not lst:
+        return 1
+
+    res, i = 1, sum(lst)
+    init = lst.index(max(lst))
+    for anch in lst[:init] + lst[init+1:]:
+        for j in range(1,anch+1):
+            res *= i
+            res //= j
+            i -= 1
+    return res
+
+
 def with_mod(num, mod):
     """
     Return Number modulo 10^MOD
@@ -59,29 +76,19 @@ if __name__ == '__main__':
                     rest_part_counter = Counter(rest_part)
                     uniq_sub_part = set(sub_part)
                     uniq_rest_part = set(rest_part)
-
-                    TERM_1 = math.perm(MOD-1, len(sub_part))
-                    TERM_2 = math.perm(NUM_DIGITS-MOD, len(rest_part))
-
-                    TERM_3 = 1
-                    for index in uniq_sub_part:
-                        count = sub_part_counter[index]
-                        TERM_3 *= math.factorial(count)
-
-                    TERM_4 = 1
-                    for index in uniq_rest_part:
-                        count = rest_part_counter[index]
-                        TERM_4 *= math.factorial(count)
-
                     PROD = 1
-                    PROD_1 = TERM_1 / TERM_3
-                    PROD_2 = TERM_2 / TERM_4
+
+                    ZEROS = (MOD-1) - len(sub_part)
+                    TERM_1 = multinomial([ZEROS, *list(sub_part_counter.values())])
                     PROD *= with_mod(TERM_1, MOD)
+                    ZEROS = (NUM_DIGITS - MOD) - len(rest_part)
+                    TERM_2 = multinomial([ZEROS, *list(rest_part_counter.values())])
                     PROD *= with_mod(TERM_2, MOD)
+
                     PROD *= sum(sub_part)
                     PROD = with_mod(PROD, MOD)
-                    print(digit, part, rest_part, sub_part, TERM_2, TERM_4,
-                        PROD_2, TERM_1, TERM_3, PROD_1, sum(sub_part), PROD)
+                    print(digit, part, rest_part, sub_part, TERM_2,
+                        TERM_1, sum(sub_part), PROD)
                     SUM += PROD
 
     NUM = int("1"*MOD)
