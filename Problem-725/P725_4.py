@@ -76,17 +76,19 @@ if __name__ == '__main__':
                     rest_part_counter = Counter(rest_part)
                     uniq_sub_part = set(sub_part)
                     uniq_rest_part = set(rest_part)
-                    PROD = 1
 
                     ZEROS = (MOD-1) - len(sub_part)
                     TERM_1 = multinomial([ZEROS, *list(sub_part_counter.values())])
-                    PROD *= with_mod(TERM_1, MOD)
+                    TERM_1 = with_mod(TERM_1, MOD)
                     ZEROS = (NUM_DIGITS - MOD) - len(rest_part)
                     TERM_2 = multinomial([ZEROS, *list(rest_part_counter.values())])
-                    PROD *= with_mod(TERM_2, MOD)
+                    TERM_2 = with_mod(TERM_2, MOD)
 
-                    PROD *= sum(sub_part)
-                    PROD = with_mod(PROD, MOD)
+                    PROD = 1
+                    for term in [TERM_1, TERM_2, sum(sub_part)]:
+                        PROD *= term
+                        PROD = with_mod(PROD, MOD)
+                    # PROD /= MOD
                     print(digit, part, rest_part, sub_part, TERM_2,
                         TERM_1, sum(sub_part), PROD)
                     SUM += PROD
