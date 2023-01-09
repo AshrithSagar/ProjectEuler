@@ -82,18 +82,18 @@ if __name__ == '__main__':
                     for place in uniq_sub_part:
                         TERM_3 = sub_part_counter.copy()
                         TERM_3[place] -= 1
-                        TERM_1 = multinomial([ZEROS, *list(TERM_3)])
+                        TERM_1 = multinomial([ZEROS, *TERM_3.values()])
                         TERM_1 = with_mod(TERM_1, MOD)
-                        TERM_6 = sub_part_counter[place]
-                        TERM_5 = TERM_6 * TERM_1
-                    TERM_5 = with_mod(TERM_5, MOD)
+                        TERM_5 = place * TERM_1
+                        DIG_SUM += int(TERM_5)
+                    DIG_SUM = with_mod(DIG_SUM, MOD)
 
                     ZEROS = (NUM_DIGITS - MOD) - len(rest_part)
-                    TERM_2 = multinomial([ZEROS, *list(rest_part_counter.values())])
+                    TERM_2 = multinomial([ZEROS, *rest_part_counter.values()])
                     TERM_2 = with_mod(TERM_2, MOD)
 
                     PROD = 1
-                    for term in [TERM_5, TERM_2]:
+                    for term in [DIG_SUM, TERM_2]:
                         PROD *= term
                         PROD = with_mod(PROD, MOD)
                     # PROD /= MOD
