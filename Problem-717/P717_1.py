@@ -47,7 +47,7 @@ def g_summation(num):
 if __name__ == '__main__':
     NUM = 100
 
-    RESULT = g_summation(NUM)
-    print(RESULT)
+    # RESULT = g_summation(NUM)
+    # print(RESULT)
 
-    print(f_function(31))
+    print(f_function(3))
