@@ -1,7 +1,6 @@
 """
 P725_4
 """
-import math
 import itertools
 from collections import Counter
 
@@ -22,16 +21,16 @@ def diff(first, second):
     """
     second_cntr = Counter(second)
     second = set(second)
-    res = []
+    result = []
     for i in first:
         if i not in second:
-            res.append(i)
+            result.append(i)
         elif i in second_cntr:
             if second_cntr[i] > 0:
                 second_cntr[i] -= 1
             else:
-                res.append(i)
-    return res
+                result.append(i)
+    return result
 
 
 def multinomial(lst):
@@ -75,30 +74,26 @@ if __name__ == '__main__':
                     sub_part_counter = Counter(sub_part)
                     rest_part_counter = Counter(rest_part)
                     uniq_sub_part = set(sub_part)
-                    uniq_rest_part = set(rest_part)
 
-                    DIG_SUM = 0
+                    DIGITS_SUM = 0
                     ZEROS = (MOD) - len(sub_part)
                     for place in uniq_sub_part:
-                        TERM_3 = sub_part_counter.copy()
-                        TERM_3[place] -= 1
-                        TERM_1 = multinomial([ZEROS, *TERM_3.values()])
-                        TERM_1 = with_mod(TERM_1, MOD)
-                        TERM_5 = place * TERM_1
-                        DIG_SUM += int(TERM_5)
-                    DIG_SUM = with_mod(DIG_SUM, MOD)
+                        MULTIPLIER = sub_part_counter.copy()
+                        MULTIPLIER[place] -= 1
+                        COEFFICIENT = multinomial([ZEROS, *MULTIPLIER.values()])
+                        COEFFICIENT = with_mod(COEFFICIENT, MOD)
+                        DIGITS_SUM += int(place * COEFFICIENT)
+                    DIGITS_SUM = with_mod(DIGITS_SUM, MOD)
 
                     ZEROS = (NUM_DIGITS - MOD) - len(rest_part)
-                    TERM_2 = multinomial([ZEROS, *rest_part_counter.values()])
-                    TERM_2 = with_mod(TERM_2, MOD)
+                    REST_COUNT = multinomial([ZEROS, *rest_part_counter.values()])
+                    REST_COUNT = with_mod(REST_COUNT, MOD)
 
                     PROD = 1
-                    for term in [DIG_SUM, TERM_2]:
+                    for term in [DIGITS_SUM, REST_COUNT]:
                         PROD *= term
                         PROD = with_mod(PROD, MOD)
-                    # PROD /= MOD
-                    print(digit, part, rest_part, sub_part, TERM_2,
-                        TERM_5, sum(sub_part), PROD)
+                    print(digit, part, rest_part, sub_part, PROD)
                     SUM += PROD
 
     NUM = int("1"*MOD)
